@@ -1,0 +1,68 @@
+Final Idea: Synapse Risk-Coach Pro
+Combining the core of risk calculation and smart journaling with a touch of Synapse Dashboard (miniature market pulse) in a flexible modular architecture, delivering immediate value without license risk and leaving the door open for expansion.
+The result: tangible value for every trader, lean performance, virtually guaranteed store approval, and attractive features that boost installs and ratings.
+
+1. Intrinsic Value to the User
+What does the module offer in practice? Why does it impress judges and users?
+Risk-Meter displays the live % risk (potential loss ÷ account balance) with instant color (green/orange/red). It provides a number not offered by default in cTrader → instant value.
+Smart Journal: Sentiment tag window when opening a trade + storing results in IndexedDB + graphing statistics. It touches on the psychology of trading and transforms sentiment into scalable data.
+Market-Pulse Mini: A bar at the top of the frame that captures the most important news about symbol and displays a sentiment indicator (positive/negative). It provides a flash view of events without overwhelming the interface or consuming a large API.
+Share-My-Stats generates a PNG of your weekly report with a click and calls navigator.share (mobile) or copy-paste (desktop). It creates a viral dimension that increases installs and ratings (official metric).
+
+2. Tested Technical Architecture
+Java
+Copy
+Edit
+┌─────── cTrader WebView Frame ───────┐
+│ React + TypeScript + Tailwind (PWA) │
+│ │
+│ [Risk-Meter] [Market-Pulse Mini] │
+│ ────────────────────────────────────── │
+│ | Chart / Orders (native) | │
+│ | Smart Journal Drawer (slide-in) | │
+│ ────────────────────────────────────── │
+│ Tabs: 📊 Analytics | 📅 History │
+│ Share-My-Stats 🡆 navigator.share │
+└────┘
+Inputs
+
+symbol, theme, accountId, positions[] from the WebView SDK.
+cTrader
+
+NewsAPI.org (Free plan 100 requests/day) → Cloud Function performs fetch and returns 1 title + sentiment (OpenAI).
+
+OpenAI / DeepSeek function-calling to summarize the trading week (8K tokens are enough).
+
+Segmentation into modules: Each module is built in a separate React file and lazy-loaded; Market-Pulse and social can be disabled with a click from the settings if the API exceeds the daily limit.
+
+3. Placement Coverage
+cTrader Interface Placement Module Display
+Mobile Bottom-Sheet (20% of the screen) Risk-Meter + Pulse (2 balls in a row)
+Web/Desktop Small ASP Block inside the chart Risk-Meter only (compact)
+Trade Watch Tab Full Tab All modules + Performance Charts
+
+Coverage of these positions is required to demonstrate the "scalability" assessed by arbitrage.
+cTrader
+
+4. Compact Execution Roadmap (20 working days)
+Working Day: Examinable Output
+1-2 Project Setup: Repo + Tailwind Structure + i18n
+3-5 Risk-Meter: Snap % Calculation, Coloring, SymbolChange Response
+6-8 Smart Journal: Tag Window, IndexedDB Storage, Mini-Chart
+9-11 Market-Pulse Cloud Function: Single News Request, Sentiment Analysis
+12-13 Share-PNG: HTML2Canvas → Blob → Share
+14 PWA + SW Offline Mode: Latest Stored Report
+15-16 Performance and Mobile Testing: Bundle < 250 KB + Time-to-Interactive < 1 s
+17 Private Publishing (Cloud → Store) “Pending Review” Status
+18-19 Collect 50+ User Test Installs (Telegram/Discord)
+20 Approval → Bot Registration Message @ctrader_suggestions_bot
+
+5. Review Committee Acceptance Criteria and How We Achieve Them
+Review Criteria in the Hackathon 2025 Terms ³ Our Practical Application
+Does not violate NewsAPI copyright. Free + LLM ⚙️ API model licensed under your name.
+Lightweight performance. Lazy-load, Bundle < 250 KB, no large libraries.
+No personal data outside cTrader. Account keys remain in the frame; Cloud Function hides service keys.
+UI & UX Quality. Automatic Dark/Light via theme, consistent fonts, aria-labels.
+Ad-free. No banners or third-party tracking (use umami).
+
+With these controls, the rejection rate is close to zero.
